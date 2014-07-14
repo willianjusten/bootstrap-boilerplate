@@ -5,12 +5,10 @@
 var env        = require('minimist')(process.argv.slice(2)),
 	gulp       = require('gulp'),
 	jade       = require('gulp-jade'),
-	browserify = require('gulp-browserify'),
+	sass       = require('gulp-sass'),
 	uglify     = require('gulp-uglify'),
+	concat     = require('gulp-concat'),
 	gulpif     = require('gulp-if'),
-	stylus     = require('gulp-stylus'),
-	wjgrid     = require('wj-grid'),
-	rupture    = require('rupture'),
 	connect    = require('gulp-connect'),
 	modRewrite = require('connect-modrewrite'),
 	imagemin   = require('gulp-imagemin');
@@ -25,21 +23,18 @@ gulp.task('jade', function(){
 
 // Call Uglify and Concat JS
 gulp.task('js', function(){
-	return gulp.src('src/js/main.js')
-		.pipe(browserify({debug: !env.p }))
-		.pipe(gulpif(env.p, uglify()))
-		.pipe(gulp.dest('build/js'))
+	return gulp.src('src/js/**/*.js')
+		.pipe(concat('main.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('build/js/'))
 		.pipe(connect.reload());
 });
 
-// Call Stylus
-gulp.task('stylus', function(){
-		gulp.src('src/styl/main.styl')
-		.pipe(stylus({
-			use:[wjgrid(),rupture()],
-			compress: env.p
-		}))
-		.pipe(gulp.dest('build/css'))
+// Call Sass
+gulp.task('sass', function(){
+	return gulp.src('src/sass/main.scss')
+		.pipe(sass())
+		.pipe(gulp.dest('build/css/'))
 		.pipe(connect.reload());
 });
 
@@ -53,7 +48,7 @@ gulp.task('imagemin', function() {
 // Call Watch
 gulp.task('watch', function(){
 	gulp.watch('src/templates/**/*.jade', ['jade']);
-	gulp.watch('src/styl/**/*.styl', ['stylus']);
+	gulp.watch('src/sass/**/*.scss', ['sass']);
 	gulp.watch('src/js/**/*.js', ['js']);
 	gulp.watch('src/img/**/*.{jpg,png,gif}', ['imagemin']);
 });
@@ -75,4 +70,4 @@ gulp.task('connect', function() {
 });
 
 // Default task
-gulp.task('default', ['js', 'jade', 'stylus', 'imagemin', 'watch', 'connect']);
+gulp.task('default', ['js', 'jade', 'sass', 'imagemin', 'watch', 'connect']);

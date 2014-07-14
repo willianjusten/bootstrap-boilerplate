@@ -42,7 +42,11 @@ new_project -
 	/src -
 		/img
 		/js
+			/bootstrap
+			main.js
 		/sass
+			/bootstrap
+			main.css
 		/templates
 		.editorconfig
 		gulpfile.js
