@@ -19,7 +19,7 @@ First of all, install the dependencies to run this boilerplate.
 
 ```sh
 # Clone this repository
-$ git clone git://github.com/willianjusten/Bootstrap-boilerplate.git new_project
+$ git clone git://github.com/willianjusten/bootstrap-boilerplate.git new_project
 $ cd new_project
 
 # install dependencies
