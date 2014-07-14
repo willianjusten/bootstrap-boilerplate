@@ -1,5 +1,6 @@
 ### NODE ###
 node_modules
+.sass-cache
 
 ### OSX ###
 .DS_Store
