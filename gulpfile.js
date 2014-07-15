@@ -8,6 +8,7 @@ var env        = require('minimist')(process.argv.slice(2)),
 	sass       = require('gulp-sass'),
 	uglify     = require('gulp-uglify'),
 	concat     = require('gulp-concat'),
+	cssmin     = require('gulp-cssmin'),
 	gulpif     = require('gulp-if'),
 	connect    = require('gulp-connect'),
 	modRewrite = require('connect-modrewrite'),
@@ -25,7 +26,7 @@ gulp.task('jade', function(){
 gulp.task('js', function(){
 	return gulp.src('src/js/**/*.js')
 		.pipe(concat('main.js'))
-		.pipe(uglify())
+		.pipe(gulpif(env.p, uglify()))
 		.pipe(gulp.dest('build/js/'))
 		.pipe(connect.reload());
 });
@@ -34,6 +35,7 @@ gulp.task('js', function(){
 gulp.task('sass', function(){
 	return gulp.src('src/sass/main.scss')
 		.pipe(sass())
+		.pipe(gulpif(env.p, cssmin()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(connect.reload());
 });
