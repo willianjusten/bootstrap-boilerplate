@@ -5,8 +5,8 @@
 var env        = require('minimist')(process.argv.slice(2)),
 	gulp       = require('gulp'),
 	jade       = require('gulp-jade'),
-	sass       = require('gulp-sass'),
 	uglify     = require('gulp-uglify'),
+	compass    = require('gulp-compass'),
 	concat     = require('gulp-concat'),
 	cssmin     = require('gulp-cssmin'),
 	gulpif     = require('gulp-if'),
@@ -32,9 +32,14 @@ gulp.task('js', function(){
 });
 
 // Call Sass
-gulp.task('sass', function(){
+gulp.task('compass', function(){
 	return gulp.src('src/sass/main.scss')
-		.pipe(sass())
+		.pipe(compass({
+			css: 'src/css',
+			sass: 'src/sass',
+			image: 'src/img'
+
+		}))
 		.pipe(gulpif(env.p, cssmin()))
 		.pipe(gulp.dest('build/css/'))
 		.pipe(connect.reload());
@@ -50,7 +55,7 @@ gulp.task('imagemin', function() {
 // Call Watch
 gulp.task('watch', function(){
 	gulp.watch('src/templates/**/*.jade', ['jade']);
-	gulp.watch('src/sass/**/*.scss', ['sass']);
+	gulp.watch('src/sass/**/*.scss', ['compass']);
 	gulp.watch('src/js/**/*.js', ['js']);
 	gulp.watch('src/img/**/*.{jpg,png,gif}', ['imagemin']);
 });
@@ -72,4 +77,4 @@ gulp.task('connect', function() {
 });
 
 // Default task
-gulp.task('default', ['js', 'jade', 'sass', 'imagemin', 'watch', 'connect']);
+gulp.task('default', ['js', 'jade', 'compass', 'imagemin', 'watch', 'connect']);
