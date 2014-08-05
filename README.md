@@ -6,6 +6,7 @@ Maybe you want to read about them:
 - [GulpJS](http://gulpjs.com/)
 - [Jade](http://jade-lang.com/)
 - [Twitter Bootstrap](http://getbootstrap.com/)
+- [Compass](http://compass-style.org/)
 
 ## Getting Started
 
@@ -58,7 +59,7 @@ new_project -
 - `gulp`: Initialize watch for changes and a server(localhost:8080)
 - `gulp js`: execute js files
 - `gulp jade`: compile jade files
-- `gulp sass`: compile sass files
+- `gulp compass`: compile sass files
 - `gulp imagemin`:compress image files
 - `gulp connect`: inicialize a server
 - `gulp watch`: call for watch files
